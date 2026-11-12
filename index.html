@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020"><title>AIster — Votre intelligence augmentée</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1020;--panel:#111a2d;--panel2:#16223a;--line:#263653;--text:#edf3ff;--muted:#9baac3;--accent:#8b7cff;--cyan:#51d6e8}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -15%,#28346a 0,transparent 40%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,textarea,select{font:inherit}button{cursor:pointer;color:inherit}.app{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+.sidebar{background:#0a1020cc;border-right:1px solid var(--line);padding:22px 16px;display:flex;flex-direction:column;gap:22px}
+.brand{display:flex;align-items:center;gap:11px;padding:4px 7px}.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--cyan));display:grid;place-items:center;color:#08101e;font-weight:900;font-size:20px;box-shadow:0 8px 30px #6c70ff55}.brand strong{font-size:20px;letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:11px}
+.newchat{border:1px solid #6f72d7;background:#7774f21c;border-radius:12px;padding:12px;text-align:left}.newchat:hover,.quick:hover{background:#8b7cff25}
+.side-label{color:#71829f;text-transform:uppercase;letter-spacing:1.3px;font-size:10px;font-weight:700;padding:0 8px}.history{color:var(--muted);font-size:13px;padding:9px;border-radius:9px}.history.active{background:var(--panel2);color:var(--text)}.sidebar-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:15px;color:var(--muted);font-size:12px}
+main{min-width:0;display:flex;flex-direction:column;min-height:100vh}.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 30px;background:#0b102099;backdrop-filter:blur(14px)}.topbar .mode{color:var(--muted);font-size:13px}.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.dot{width:7px;height:7px;border-radius:50%;background:#e3ae55}.dot.on{background:#50d69b;box-shadow:0 0 12px #50d69b88}
+.content{width:min(900px,100%);margin:0 auto;padding:38px 28px 190px;flex:1}.hero{text-align:center;margin:7vh auto 34px}.orb{width:68px;height:68px;border-radius:22px;margin:0 auto 19px;background:linear-gradient(145deg,#9b8cff,#4bd5e6);display:grid;place-items:center;color:#091020;font-size:30px;box-shadow:0 14px 45px #7774f244}.hero h1{font-size:clamp(30px,4vw,43px);line-height:1.1;margin:0 0 12px;letter-spacing:-1.4px}.gradient{background:linear-gradient(90deg,#b5a8ff,#64d9e7);color:transparent;background-clip:text}.hero p{color:var(--muted);margin:0 auto;max-width:540px}
+.quick-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;max-width:650px;margin:27px auto}.quick{background:#121c30;border:1px solid var(--line);border-radius:14px;padding:15px;text-align:left;transition:.2s}.quick b{display:block;margin-bottom:4px;font-size:13px}.quick span{color:var(--muted);font-size:12px}.quick .emoji{font-size:18px;margin-bottom:7px;display:block}
+.messages{display:flex;flex-direction:column;gap:20px}.message{display:flex;gap:12px;max-width:100%}.avatar{width:31px;height:31px;flex:0 0 31px;border-radius:10px;background:#202d49;display:grid;place-items:center;font-size:13px}.message.user .avatar{background:#5b55b9}.bubble{max-width:calc(100% - 45px);padding:12px 15px;border:1px solid var(--line);border-radius:4px 15px 15px 15px;background:#121c30;white-space:pre-wrap;overflow-wrap:anywhere}.message.user .bubble{background:#24264a;border-color:#41447c}.meta{font-size:10px;color:#8e9bb4;margin-bottom:5px}.typing{color:var(--muted);font-size:13px}
+.composer-wrap{position:fixed;bottom:0;left:260px;right:0;padding:25px 25px 18px;background:linear-gradient(transparent,#0b1020 22%)}.composer{max-width:850px;margin:auto;background:#121c30;border:1px solid #344565;border-radius:18px;padding:12px;box-shadow:0 18px 55px #0007}.toolbar{display:flex;align-items:center;gap:9px;padding:0 3px 9px}.toolbar select{background:#1a2942;color:#dbe5f7;border:1px solid #304360;border-radius:8px;padding:6px 9px;font-size:11px}.ensemble{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:11px;margin-left:auto}.ensemble input{accent-color:var(--accent)}textarea{display:block;width:100%;resize:none;min-height:55px;max-height:170px;background:transparent;border:0;outline:0;color:var(--text);padding:8px 7px}.sendrow{display:flex;justify-content:space-between;align-items:center;padding:3px 2px 0}.hint{font-size:10px;color:#74839c}.send{width:39px;height:39px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--accent),#57d5e4);color:#09101e;font-weight:900;font-size:18px}.send:disabled{opacity:.45;cursor:not-allowed}.disclaimer{text-align:center;color:#687894;font-size:10px;margin-top:9px}
+.toast{position:fixed;top:82px;right:22px;background:#301e29;border:1px solid #75475a;color:#ffdce5;border-radius:10px;padding:12px 15px;max-width:360px;display:none;z-index:5}
+@media(max-width:760px){.app{grid-template-columns:1fr}.sidebar{display:none}.topbar{padding:0 17px}.content{padding:25px 16px 180px}.composer-wrap{left:0;padding:15px 12px}.hero{margin-top:5vh}.quick-grid{grid-template-columns:1fr}.status{font-size:10px}}
+</style></head>
+<body><div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="logo">✳</div><div><strong>AIster</strong><small>Votre intelligence augmentée</small></div></div>
+ <button class="newchat" id="newChat">＋ &nbsp; Nouvelle conversation</button>
+ <div><div class="side-label">Espace de travail</div><div class="history active">✧ &nbsp; Assistant AIster</div><div class="history">⌘ &nbsp; Mes projets <small style="display:block;margin-left:22px;font-size:10px">Bientôt disponible</small></div></div>
+ <div><div class="side-label">Modes intelligents</div><div class="history">✦ &nbsp; Discussion</div><div class="history">⌘ &nbsp; Programmation</div><div class="history">⌕ &nbsp; Recherche</div><div class="history">▧ &nbsp; Création</div></div>
+ <div class="sidebar-bottom">AIster V1 · Prototype connecté<br><span id="sideStatus">Vérification de la connexion…</span></div>
+</aside>
+<main>
+ <header class="topbar"><div class="mode">✦ &nbsp; Assistant intelligent <span style="color:#657895">/</span> <b>AIster</b></div><div class="status"><span class="dot" id="statusDot"></span><span id="statusText">Connexion non vérifiée</span></div></header>
+ <section class="content">
+  <div class="hero" id="hero"><div class="orb">✳</div><h1>Que pouvons-nous <span class="gradient">accomplir</span> ?</h1><p>Une idée, une question ou un projet ? Décris ton objectif. AIster t'aide à passer de l'idée à la réalisation.</p>
+   <div class="quick-grid">
+    <button class="quick" data-prompt="Aide-moi à concevoir et développer un site web moderne."><span class="emoji">⌘</span><b>Créer un site ou une application</b><span>Du concept au code, étape par étape.</span></button>
+    <button class="quick" data-prompt="Explique-moi ce sujet clairement avec des exemples : "><span class="emoji">✧</span><b>Comprendre un sujet</b><span>Des explications adaptées à mon niveau.</span></button>
+    <button class="quick" data-prompt="Aide-moi à organiser et réaliser ce projet : "><span class="emoji">▤</span><b>Réaliser un projet</b><span>Planifier, produire et améliorer.</span></button>
+    <button class="quick" data-prompt="Aide-moi à analyser cette question et à comparer plusieurs approches : "><span class="emoji">⌕</span><b>Analyser une idée</b><span>Comparer des options et décider.</span></button>
+   </div>
+  </div>
+  <div class="messages" id="messages"></div>
+ </section>
+ <div class="composer-wrap"><div class="composer">
+  <div class="toolbar"><select id="mode"><option value="auto">✦ Auto — meilleur modèle</option><option value="general">Discussion</option><option value="code">Programmation</option><option value="research">Recherche / analyse</option></select>
+   <label class="ensemble"><input type="checkbox" id="ensemble"> Mode multi-IA (3 appels)</label>
+  </div>
+  <textarea id="prompt" placeholder="Écris ta question ou décris ton projet…" rows="2"></textarea>
+  <div class="sendrow"><span class="hint">Entrée pour envoyer · Maj + Entrée pour une nouvelle ligne</span><button class="send" id="send" aria-label="Envoyer">↑</button></div>
+ </div><div class="disclaimer">Les réponses peuvent contenir des erreurs. Vérifie les informations importantes.</div></div>
+</main></div><div class="toast" id="toast"></div>
+<script>
+const $=s=>document.querySelector(s), messagesEl=$("#messages"), promptEl=$("#prompt"), sendBtn=$("#send");
+let history=[];
+function toast(t){const el=$("#toast");el.textContent=t;el.style.display="block";setTimeout(()=>el.style.display="none",5000)}
+function addMessage(role,text,meta=""){const row=document.createElement("div");row.className="message "+role;const av=document.createElement("div");av.className="avatar";av.textContent=role==="user"?"V":"✳";const b=document.createElement("div");b.className="bubble";if(meta){const m=document.createElement("div");m.className="meta";m.textContent=meta;b.append(m)}const body=document.createElement("div");body.textContent=text;b.append(body);row.append(av,b);messagesEl.append(row);row.scrollIntoView({behavior:"smooth",block:"end"});return body}
+function reset(){history=[];messagesEl.innerHTML="";$("#hero").style.display="block";promptEl.focus()}
+$("#newChat").onclick=reset;
+document.querySelectorAll(".quick").forEach(b=>b.onclick=()=>{promptEl.value=b.dataset.prompt;promptEl.focus()});
+async function status(){try{const r=await fetch("/api/status");const d=await r.json();$("#statusDot").classList.toggle("on",d.configured);$("#statusText").textContent=d.configured?"IA connectée":"Clé API à configurer";$("#sideStatus").textContent=d.configured?"Fournisseur prêt":"Ajoute ta clé API dans .env";}catch{$("#statusText").textContent="Serveur non connecté";$("#sideStatus").textContent="Démarre le serveur local";}}
+async function send(){const text=promptEl.value.trim();if(!text||sendBtn.disabled)return;$("#hero").style.display="none";history.push({role:"user",content:text});addMessage("user",text);promptEl.value="";promptEl.style.height="auto";sendBtn.disabled=true;const waiting=addMessage("assistant","AIster réfléchit…","EN COURS");waiting.className="typing";
+try{const r=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history,mode:$("#mode").value,ensemble:$("#ensemble").checked})});const d=await r.json();if(!r.ok)throw new Error(d.error||"Erreur de connexion");waiting.textContent=d.answer;waiting.className="";const meta=document.createElement("div");meta.className="meta";meta.textContent="Modèle(s) : "+d.models.join(" · ");waiting.parentElement.insertBefore(meta,waiting);history.push({role:"assistant",content:d.answer});}catch(e){waiting.textContent="Impossible de répondre : "+e.message;waiting.className="";toast(e.message)}finally{sendBtn.disabled=false;promptEl.focus()}}
+sendBtn.onclick=send;promptEl.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});promptEl.addEventListener("input",()=>{promptEl.style.height="auto";promptEl.style.height=Math.min(promptEl.scrollHeight,170)+"px"});status();
+</script></body></html>
